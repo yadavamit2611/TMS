@@ -75,7 +75,7 @@
                         data: {"details":JSON.stringify(details)},
                         success: function(d) {
                             $("#message").html(d);
-                            setTimeout(resetData,1000);
+                            setTimeout(resetData,2000);
                         },
                         error: function(jqXHR,exception)
                         {

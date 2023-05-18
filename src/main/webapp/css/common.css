@@ -1,9 +1,9 @@
-body
-{
-    font: 100% Courier New;
-    background-color: black;
-    color:#84c754;
-}
+/*body*/
+/*{*/
+/*    font: 100% Courier New;*/
+/*    background-color: black;*/
+/*    color:#84c754;*/
+/*}*/
 input
 {
     background-color: black;
@@ -17,10 +17,22 @@ input
 {
     background-color:tomato;
 }
-#register,#login
+#register
 {
     background-color: #84c754;
     color: black;
+    font: 100% Courier New;
+    font-weight: bold;
+}
+#login
+{
+    background-color: aquamarine;
+    font: 100% Courier New;
+    font-weight: bold;
+}
+#fpassword
+{
+    background-color: tomato;
     font: 100% Courier New;
     font-weight: bold;
 }
