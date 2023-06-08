@@ -2,7 +2,7 @@ package com.example.tms;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import dao.DatabaseEntityOperation;
+import dao.UserDao;
 import model.User;
 
 import javax.servlet.*;
@@ -10,14 +10,13 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 
 @WebServlet(name = "RegisterServlet", value = "/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
-    private DatabaseEntityOperation deo;
+    private UserDao deo;
 
     public void init() {
-        deo = new DatabaseEntityOperation();
+        deo = new UserDao();
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,13 +33,15 @@ public class RegisterServlet extends HttpServlet {
 //            user = gson.fromJson(details, User.class);
             JsonObject data = JsonParser.parseString(request.getParameter("details")).getAsJsonObject();
             String name = data.get("name").getAsString();
+            String username = data.get("uname").getAsString();
             String email = data.get("email").getAsString();
             String dob = data.get("dob").getAsString();
             String password = data.get("pass").getAsString();
-            User user = new User(name,email,dob,password);
+            User user = new User(name,username,email,dob,password);
             deo.insertUser(user);
             PrintWriter out = response.getWriter();
-            out.println("successfully added "+user.name+","+user.email+","+user.dob+","+user.password);
+            out.println("successfully added "+user.name+","+user.username+","+user.email+","+user.dob+","+user.password);
+            //            response.sendRedirect(request.getContextPath()+"/index.jsp");
 
         }catch (Exception e)
         {

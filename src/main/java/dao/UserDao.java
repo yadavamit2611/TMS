@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseEntityOperation {
+public class UserDao {
     private String jdbcURL = "jdbc:mysql://localhost:3306/tms_v1.0.0?allowPublicKeyRetrieval=true&useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "pass";
@@ -14,12 +14,14 @@ public class DatabaseEntityOperation {
     private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (name, email, password, dob) VALUES "
             + " (?, ?, ?, ?);";
 
-    private static final String SELECT_USER_BY_ID = "select id,name,email,dob from user where id =?";
+    private static final String SELECT_USER_BY_ID = "select id,name,username,email,dob from user where id =?";
+
+    private static final String SELECT_USER_BY_USERNAME = "select id,name,email,dob from user where username =? and password=?";
     private static final String SELECT_ALL_USERS = "select * from user";
     private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
-    private static final String UPDATE_USERS_SQL = "update user set name = ?,email= ?, dob =? where id = ?;";
+    private static final String UPDATE_USERS_SQL = "update user set name = ?,username = ?,email= ?, dob =? where id = ?;";
 
-    public DatabaseEntityOperation() {
+    public UserDao() {
     }
 
     protected Connection getConnection() {
@@ -52,7 +54,30 @@ public class DatabaseEntityOperation {
             printSQLException(e);
         }
     }
+    public User getUserByUsername(String username,String password) {
+        User user = null;
+        // Step 1: Establishing a Connection
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_USERNAME);) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
 
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int id = Integer.parseInt(rs.getString("id"));
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                user = new User(id, name, email);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return user;
+    }
     public User selectUser(int id) {
         User user = null;
         // Step 1: Establishing a Connection

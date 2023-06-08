@@ -2,9 +2,16 @@ package model;
 
 public class User {
 
-    public String name,email,dob,password;
+    public String name,username,email,dob,password;
     public int id;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public int getId() {
         return id;
@@ -20,6 +27,23 @@ public class User {
         this.email = "";
         this.dob = "";
         this.password = "";
+    }
+    public  User(String name,String password)
+    {
+        this.name = name;
+        this.password = password;
+    }
+    public User(int id,String name,String email)
+    {
+        this.name = name;
+        this.email = email;
+    }
+    public User(String name, String username, String email, String dob, String password) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.dob = dob;
+        this.password = password;
     }
 
     public User(String name, String email, String dob, String password) {

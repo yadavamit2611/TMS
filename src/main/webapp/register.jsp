@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <script src="js/jquery-3.6.4.js"></script>
     <script>
         $(document).ready(function(){
@@ -20,6 +20,7 @@
             {
                 $("#pname").val("");
                 $("#pemail").val("");
+                $("#uname").val("");
                 $("#pdob").val("");
                 $("#pass").val("");
                 $("#conpass").val("");
@@ -36,6 +37,11 @@
                 if (details.email == "")
                 {
                     alert("Email cannot be empty");
+                    return false;
+                }
+                if (details.uname == "")
+                {
+                    alert("User name cannot be empty");
                     return false;
                 }
                 if (details.dob == "")
@@ -64,6 +70,7 @@
                 let details = {};
                 details.name = $("#pname").val();
                 details.email = $("#pemail").val();
+                details.uname = $("#uname").val();
                 details.dob = $("#pdob").val();
                 details.pass = $("#pass").val();
                 details.conpass = $("#conpass").val();
@@ -96,10 +103,11 @@
 <body>
 <div id="title"><h1>Register to use Task Manager</h1></div>
 <form id="registerForm">
-    Name : <input type="text" name="pname" id="pname" placeholder="Enter your name"><br><br>
-    Email : <input type="email" name="pemail" id="pemail" placeholder="Enter your emailid"><br><br>
-    Date of Birth : <input type="date" name="pdob" id="pdob" placeholder="Add date of birth"><br><br>
-    Password : <input type="password" name="pass" id="pass" placeholder="Enter your password"><br><br>
+    Name : <input type="text" id="pname" placeholder="Enter your name"><br><br>
+    Email : <input type="email" id="pemail" placeholder="Enter your emailid"><br><br>
+    Username : <input type="text" id="uname" placeholder="Enter new user name"><br><br>
+    Date of Birth : <input type="date" id="pdob" placeholder="Add date of birth"><br><br>
+    Password : <input type="password" id="pass" placeholder="Enter your password"><br><br>
     Confirm Password : <input type="password" name="conpass" id="conpass" placeholder="Re-confirm your password"><br><br>
     <input id="register" type="button" value="Submit Data">
     <input id="login" type="button" value="Login">
