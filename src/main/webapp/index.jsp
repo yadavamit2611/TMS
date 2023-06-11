@@ -3,7 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- awesome fontfamily -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <script src="js/jquery-3.6.4.js"></script>
     <script>
         $(document).ready(function(){
@@ -50,15 +56,30 @@
         });
 
     </script>
-    <title>lOGIN | TMS</title>
+    <title>TMS LOGIN</title>
 </head>
 <body>
-<div id="title"><h1>Login | TMS</h1></div>
-Email : <input type="text" id="uname" placeholder="Enter Username"></body><br><br>
-Password : <input type="password" name="password" id="pass" placeholder="Enter password"><br><br>
-<button id="login">Click Me</button>
-<button id="fpassword">Forgot Password</button><br><br>
-<span id="register"><u>Not Registered Yet? Click Here</u></span>
-<div>${message}</div>
+<div class="contact">
+    <div class="log-container">
+        <div class="row ">
+            <div class="col-lg-6 flex-column">
+                <img src="images/login.jpg" alt="login image" height="100%" width="100%">
+            </div>
+            <div class="col-lg-6 flex-column">
+            <div class="titlepage h2 text-center">
+                <h2><i class="fa fa-home"></i> TMS Login</h2>
+            </div>
+            <form class="form-control-lg text_align_center">
+            <input type="text" id="uname" placeholder="Enter Username"><br><br>
+            <input type="password" name="password" id="pass" placeholder="Enter password"><br><br>
+            <input type="button" id="login" value="Click Me">
+            <input type="button" id="fpassword" value="Forgot Password"><br><br>
+            <span id="register"><u>Not Registered Yet? Click Here</u></span>
+            </form>
+            <div>${message}</div>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 </html>

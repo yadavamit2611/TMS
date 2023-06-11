@@ -1,5 +1,10 @@
 package com.example.tms;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import dao.UserDao;
 import model.User;
 import javax.servlet.RequestDispatcher;
@@ -8,12 +13,15 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
     private String message;
 
-    public static final int LOGIN=0,LOGOUT=1;
+    public static final int LOGIN=0,LOGOUT=1,GET_ALL_USERS=3;
     private UserDao op;
     public void init() {
         message = "Hello World!";
@@ -23,6 +31,7 @@ public class HelloServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html");
         int operation = Integer.parseInt(request.getParameter("operation"));
+        HttpSession session = request.getSession();
         switch (operation)
         {
             case LOGIN:
@@ -34,7 +43,6 @@ public class HelloServlet extends HttpServlet {
                     String destPage = "login.jsp";
                     if(user != null)
                     {
-                        HttpSession session = request.getSession();
                         session.setAttribute("user",user);
                         session.setMaxInactiveInterval(100);
                         destPage = "home.jsp";
@@ -53,7 +61,6 @@ public class HelloServlet extends HttpServlet {
                 }
                 break;
             case LOGOUT:
-                HttpSession session = request.getSession();
                 if (session != null)
                 {
                     try {
@@ -65,6 +72,29 @@ public class HelloServlet extends HttpServlet {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                }
+                break;
+            case GET_ALL_USERS:
+                if (session!=null)
+                {
+                    List<User> users = op.selectAllUsers();
+                    try {
+                        PrintWriter writer = response.getWriter();
+                        Gson gson = new Gson();
+                        JsonElement element = gson.toJsonTree(users, new TypeToken<List<User>>() {}.getType());
+
+                        if (! element.isJsonArray() ) {
+// fail appropriately
+                            System.out.println("Exception");
+                        }
+                        JsonArray array = element.getAsJsonArray();
+                        writer.println(array);
+                        writer.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
                 }
                 break;
             default:

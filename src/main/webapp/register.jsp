@@ -9,7 +9,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- awesome fontfamily -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <script src="js/jquery-3.6.4.js"></script>
     <script>
         $(document).ready(function(){
@@ -101,19 +107,30 @@
     <title>Task Manager | Register</title>
 </head>
 <body>
-<div id="title"><h1>Register to use Task Manager</h1></div>
-<form id="registerForm">
-    Name : <input type="text" id="pname" placeholder="Enter your name"><br><br>
-    Email : <input type="email" id="pemail" placeholder="Enter your emailid"><br><br>
-    Username : <input type="text" id="uname" placeholder="Enter new user name"><br><br>
-    Date of Birth : <input type="date" id="pdob" placeholder="Add date of birth"><br><br>
-    Password : <input type="password" id="pass" placeholder="Enter your password"><br><br>
-    Confirm Password : <input type="password" name="conpass" id="conpass" placeholder="Re-confirm your password"><br><br>
-    <input id="register" type="button" value="Submit Data">
-    <input id="login" type="button" value="Login">
-</form>
-
-<%--<button onclick="sendData()">Click Me</button>--%>
-<p><span id="message"></span></p>
+<div class="contact">
+    <div class="log-container">
+        <div class="row ">
+            <div class="col-lg-6 flex-column">
+                <img src="images/login.jpg" alt="login image" height="100%" width="100%">
+            </div>
+            <div class="col-lg-6 flex-column">
+                <div class="titlepage h2 text-center">
+                    <h2>TMS | Register</h2>
+                </div>
+                <form class="form-control-lg text_align_center">
+                    <input type="text" id="pname" placeholder="Enter your name"><br><br>
+                    <input type="email" id="pemail" placeholder="Enter your emailid"><br><br>
+                    <input type="text" id="uname" placeholder="Enter new user name"><br><br>
+                    <input type="date" id="pdob" placeholder="Add date of birth"><br><br>
+                    <input type="password" id="pass" placeholder="Enter your password"><br><br>
+                    <input type="password" name="conpass" id="conpass" placeholder="Re-confirm your password"><br><br>
+                    <input id="register" type="button" value="Submit Data">
+                    <input id="login" type="button" value="Login">
+                </form>
+                <div id="message"></div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

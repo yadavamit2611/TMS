@@ -9,31 +9,37 @@
 <html>
 <head>
     <title>HOME</title>
-    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <script src="js/jquery-3.6.4.js"></script>
-    <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
     <script>
         $(document).ready(function(){
             $("#logout").click(function(){
                 let operation = <%=HelloServlet.LOGOUT%>+"";
-                $.get("hello-servlet?operation="+operation, function(data,status)
-                    {
-                        if (status === "success")
+                    $.get("hello-servlet?operation="+operation, function(data,status)
                         {
-                            window.location.href = "index.jsp";
+                            if (status === "success")
+                            {
+                                window.location.href = "index.jsp";
+                            }
+                            else
+                            {
+                                console.log(data);
+                            }
                         }
-                        else
-                        {
-                            console.log(data);
-                        }
-                    }
-                );
-        });
+                    );
+            });
+            let hamburger = document.querySelector(".hamburger");
+            hamburger.addEventListener("click", function(){
+                document.querySelector("body").classList.toggle("active");
+            })
+            $("#picture").attr("src","images/clint.jpg");
+            $("home").addClass('active');
         });
     </script>
 </head>
 <body>
-<h1 id="title">Welcome to the Home Page ${user.name} and ${user.email}</h1>
-<button id="logout">Logout</button>
+<jsp:include page="include/sidebar.jsp"></jsp:include>
 </body>
 </html>

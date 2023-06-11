@@ -11,8 +11,8 @@ public class UserDao {
     private String jdbcUsername = "root";
     private String jdbcPassword = "pass";
 
-    private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (name, email, password, dob) VALUES "
-            + " (?, ?, ?, ?);";
+    private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (name,username, email, password, dob) VALUES "
+            + " (?, ?, ?, ?, ?);";
 
     private static final String SELECT_USER_BY_ID = "select id,name,username,email,dob from user where id =?";
 
@@ -45,9 +45,10 @@ public class UserDao {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getDob());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, user.getDob());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -120,8 +121,8 @@ public class UserDao {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String email = rs.getString("email");
-                String country = rs.getString("country");
-                users.add(new User(id, name, email, country));
+                String dob = rs.getString("dob");
+                users.add(new User(id, name, email, dob));
             }
         } catch (SQLException e) {
             printSQLException(e);
